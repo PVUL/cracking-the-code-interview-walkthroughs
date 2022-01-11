@@ -6,18 +6,7 @@ Example
 */
 
 function replaceSpaces(str) {
-  const charArr = str.split("");
-
-  for (let i = 0; i < charArr.length; i++) {
-    const char = charArr[i];
-
-    if (char === " ") {
-      charArr[i] = "%20";
-    }
-  }
-
-  const backToString = charArr.join("");
-  return backToString;
+  return str.split(" ").join("%20");
 }
 
 // function replaceSpaces(str) {
