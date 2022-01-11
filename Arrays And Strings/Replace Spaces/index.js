@@ -21,7 +21,7 @@ function replaceSpaces(str) {
 }
 
 // function replaceSpaces(str) {
-//   return str.split(" ").join("%20");
+//   return str.replace(/\s/g, "%20");
 // }
 
 // _________ _______  _______ _________   _______  _______  _______  _______  _______
