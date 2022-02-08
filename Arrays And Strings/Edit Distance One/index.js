@@ -102,6 +102,12 @@ describe("Edit Distance One", () => {
   it("returns false correctly, editDistanceOne('dog', 'cat') --> false", () => {
     assert.equal(editDistanceOne("dog", "cat"), false);
   });
+  it("returns false correctly, editDistanceOne('dog', 'dogss') --> false", () => {
+    assert.equal(editDistanceOne("dog", "dogss"), false);
+  });
+  it("returns false correctly, editDistanceOne('dogss', 'dog') --> false", () => {
+    assert.equal(editDistanceOne("dogss", "dog"), false);
+  });
 });
 
 mocha.run();
