@@ -18,12 +18,12 @@ function charLengthEncoding(str) {
     if (str[i] === str[i + 1]) {
       countConsecutive++;
     } else {
-      compressed += str[i] + String(countConsecutive);
+      compressed = compressed + str[i] + String(countConsecutive);
       countConsecutive = 1;
     }
   }
 
-  return str.length > compressed.length ? compressed : str;
+  return compressed.length < str.length ? compressed : str;
 }
 
 // _________ _______  _______ _________   _______  _______  _______  _______  _______
