@@ -17,9 +17,9 @@ function rotateImage(matrix) {
   for (let row = 0; row < matrix.length; row++) {
     for (let col = 0; col < matrix[0].length; col++) {
       if (row < col) {
-        const temp = matrix[row][col];
+        const oldCellValue = matrix[row][col];
         matrix[row][col] = matrix[col][row];
-        matrix[col][row] = temp;
+        matrix[col][row] = oldCellValue;
       }
     }
   }
