@@ -10,17 +10,18 @@ Solve this problem without using a temporary buffer
 function removeDuplicates(head) {
   const map = {};
 
+  let current = head;
   let previous = null;
 
-  while (head) {
-    if (head.data in map) {
-      previous.next = head.next;
+  while (current) {
+    if (current.data in map) {
+      previous.next = current.next;
     } else {
-      map[head.data] = true;
-      previous = head;
+      map[current.data] = true;
+      previous = current;
     }
 
-    head = head.next;
+    current = current.next;
   }
 }
 
@@ -29,10 +30,12 @@ function removeDuplicates(head) {
 //   let current = head;
 
 //   while (current) {
+//     // Runner checks all nodes ahead of current
 //     let runner = current;
 
 //     while (runner.next) {
 //       if (runner.next.data === current.data) {
+//         // Deletes current runner node
 //         runner.next = runner.next.next;
 //       } else {
 //         runner = runner.next;
