@@ -4,12 +4,12 @@ Example
 returnNthFromEnd([1,2,3,4,5], 2) --> 4
 */
 
-function returnNthFromEnd(head, k) {
+function returnNthFromEnd(head, n) {
   let slow = head;
   let fast = head;
 
   //Move fast N nodes ahead of slow
-  for (let i = 0; i < k; i++) {
+  for (let i = 0; i < n; i++) {
     fast = fast.next;
   }
 
