@@ -1,14 +1,12 @@
 /* 
-Write a function to delete a node in the middle (any node that is not the first
-and last node) of a singly linked list, given only access to that node.
-It is guaranteed that the node to be deleted is not a head or tail node in the list.
+Write a function to delete a node in a singly linked list, given only access to that node.
 EXAMPLE
 Input: Node 3 from [1,2,3,4,5,6,7,8,9,10]
 Result: New linked list looks like [1,2,4,5,6,7,8,9,10]
 */
 
 function deleteNode(node) {
-  if (!node || !node.next) {
+  if (!node.next) {
     return;
   }
 
@@ -49,12 +47,10 @@ describe("Delete Node", () => {
     deleteNode(threeNode);
     assert.equal(fetchLLVals(startingLL).join(""), "5421");
   });
-  it("deleteNode does not throw error on invalid node, or if node to remove is last node of LL", () => {
+  it("deleteNode does not throw error if node to remove is last node of LL", () => {
     const startingLL = convertArrToLL([1]);
     deleteNode(startingLL);
     assert.equal(fetchLLVals(startingLL).join(""), "1");
-
-    deleteNode(null);
   });
 });
 
