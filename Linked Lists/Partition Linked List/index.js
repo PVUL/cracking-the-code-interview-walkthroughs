@@ -7,10 +7,11 @@ Output: [1,2,2,4,3,5]
 */
 
 function partition(node, x) {
-  let before = new ListNode("Filler");
-  let beforeHead = before;
-  let after = new ListNode("Filler");
-  let afterHead = after;
+  const beforeHead = new ListNode("Filler");
+  const afterHead = new ListNode("Filler");
+
+  let before = beforeHead;
+  let after = afterHead;
 
   while (node) {
     if (node.data < x) {
@@ -24,8 +25,8 @@ function partition(node, x) {
     node = node.next;
   }
 
-  after.next = null;
   before.next = afterHead.next;
+  after.next = null;
 
   return beforeHead.next;
 }
