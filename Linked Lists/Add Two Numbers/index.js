@@ -7,8 +7,8 @@ Output: [9,7,5] --> 321 + 654 = 975
 */
 
 function addTwoNumbers(l1, l2) {
-  let dummyHead = new ListNode(0);
-  let current = dummyHead; // Will always be tail of created LL
+  let resultHead = new ListNode("Filler");
+  let current = resultHead; // Will always be tail of created LL
 
   let carry = 0;
 
@@ -28,7 +28,7 @@ function addTwoNumbers(l1, l2) {
     carry = carry >= 10 ? 1 : 0;
   }
 
-  return dummyHead.next;
+  return resultHead.next;
 }
 
 // _________ _______  _______ _________   _______  _______  _______  _______  _______
