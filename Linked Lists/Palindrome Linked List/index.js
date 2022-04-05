@@ -12,16 +12,17 @@ function isPalindrome(node) {
 }
 
 function reverseAndClone(node) {
-  let head = null;
+  let reversedHead = null;
 
   while (node) {
     let newNode = new ListNode(node.data);
-    newNode.next = head;
-    head = newNode;
+    newNode.next = reversedHead;
+
+    reversedHead = newNode;
     node = node.next;
   }
 
-  return head;
+  return reversedHead;
 }
 
 function isEqual(one, two) {
@@ -33,7 +34,7 @@ function isEqual(one, two) {
     two = two.next;
   }
 
-  return one === null && two === null;
+  return !one && !two;
 }
 
 // _________ _______  _______ _________   _______  _______  _______  _______  _______
