@@ -11,10 +11,6 @@ Output: 3
 */
 
 function findCycleStart(head) {
-  if (!head || !head.next) {
-    return null;
-  }
-
   let slow = head;
   let fast = head;
   let beginningOfLoop = head;
@@ -75,6 +71,11 @@ describe("Cycle Start", () => {
   });
   it("returns null if no loop", () => {
     const l1 = convertArrToLL([0, 1, 2, 1, 3]);
+    assert.equal(findCycleStart(l1), null);
+  });
+  it("returns null for edge case of invalid node or LL of length 1", () => {
+    const l1 = convertArrToLL([1]);
+    assert.equal(findCycleStart(), null);
     assert.equal(findCycleStart(l1), null);
   });
 });
