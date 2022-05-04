@@ -13,7 +13,7 @@ Output: 3
 function findCycleStart(head) {
   let slow = head;
   let fast = head;
-  let beginningOfLoop = head;
+  let cycleStart = head;
 
   while (fast && fast.next) {
     slow = slow.next;
@@ -21,12 +21,12 @@ function findCycleStart(head) {
 
     // Cycle detected
     if (slow === fast) {
-      // Find start of loop
-      while (slow !== beginningOfLoop) {
+      // Find start of cycle
+      while (slow !== cycleStart) {
         slow = slow.next;
-        beginningOfLoop = beginningOfLoop.next;
+        cycleStart = cycleStart.next;
       }
-      return beginningOfLoop;
+      return cycleStart;
     }
   }
 
