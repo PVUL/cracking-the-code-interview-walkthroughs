@@ -10,7 +10,7 @@ class ThreeStacks {
   }
   push(stackNum, value) {
     if (this.isFull(stackNum) || stackNum > 2) {
-      return undefined;
+      return false;
     }
 
     this.sizes[stackNum]++;
@@ -18,7 +18,7 @@ class ThreeStacks {
   }
   pop(stackNum) {
     if (this.isEmpty(stackNum) || stackNum > 2) {
-      return undefined;
+      return false;
     }
 
     const topIndex = this.indexOfTop(stackNum);
@@ -30,7 +30,7 @@ class ThreeStacks {
   }
   peek(stackNum) {
     if (this.isEmpty(stackNum) || stackNum > 2) {
-      return undefined;
+      return false;
     }
 
     return this.values[this.indexOfTop(stackNum)];
@@ -77,50 +77,61 @@ const { assert } = chai;
 describe("push(stackNum, value)", () => {
   const threeStacksFromArray = new ThreeStacks(1);
 
-  it("pushes to correct stack within array", () => {
+  it("returns false if specified stack is full or is invalid!", () => {
+    threeStacksFromArray.push(0, "Kevin");
+    assert.equal(threeStacksFromArray.push(0, "Kevin"), false);
+
     threeStacksFromArray.push(1, "Kevin");
-    assert.equal(threeStacksFromArray.values[1], "Kevin");
-  });
-  it("returns undefined if specified stack is full or is invalid", () => {
-    assert.equal(threeStacksFromArray.push(1, "Kevin"), undefined);
-    assert.equal(threeStacksFromArray.push(100000, "Kevin"), undefined);
+    assert.equal(threeStacksFromArray.push(1, "Kevin"), false);
+
+    assert.equal(threeStacksFromArray.push(100000, "Kevin"), false);
   });
 });
 
 describe("pop(stackNum)", () => {
   const threeStacksFromArray = new ThreeStacks(3);
+
+  threeStacksFromArray.push(0, "b");
+
   threeStacksFromArray.push(1, "a");
   threeStacksFromArray.push(1, "b");
   threeStacksFromArray.push(1, "c");
 
-  it("returns correct value, shrinks stack.", () => {
+  it("returns correct value and shrinks correct stack.", () => {
+    assert.equal(threeStacksFromArray.pop(0), "b");
+
     assert.equal(threeStacksFromArray.pop(1), "c");
     assert.equal(threeStacksFromArray.pop(1), "b");
     assert.equal(threeStacksFromArray.pop(1), "a");
   });
-  it("returns undefined if specified stack is empty or is invalid", () => {
-    assert.equal(threeStacksFromArray.pop(1), undefined);
-    assert.equal(threeStacksFromArray.pop(100000), undefined);
+  it("returns false if specified stack is empty or is invalid", () => {
+    assert.equal(threeStacksFromArray.pop(1), false);
+    assert.equal(threeStacksFromArray.pop(100000), false);
   });
 });
 
 describe("peek(stackNum)", () => {
   const threeStacksFromArray = new ThreeStacks(3);
+
+  threeStacksFromArray.push(0, "b");
+
   threeStacksFromArray.push(1, "a");
   threeStacksFromArray.push(1, "b");
   threeStacksFromArray.push(1, "c");
 
   it("returns top value for the right stack.", () => {
+    assert.equal(threeStacksFromArray.peek(0), "b");
+
     assert.equal(threeStacksFromArray.peek(1), "c");
     threeStacksFromArray.pop(1);
     assert.equal(threeStacksFromArray.peek(1), "b");
     threeStacksFromArray.pop(1);
     assert.equal(threeStacksFromArray.peek(1), "a");
   });
-  it("returns undefined if specified stack is empty or is invalid", () => {
+  it("returns false if specified stack is empty or is invalid", () => {
     threeStacksFromArray.pop(1);
-    assert.equal(threeStacksFromArray.peek(1), undefined);
-    assert.equal(threeStacksFromArray.peek(100000), undefined);
+    assert.equal(threeStacksFromArray.peek(1), false);
+    assert.equal(threeStacksFromArray.peek(100000), false);
   });
 });
 
