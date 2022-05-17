@@ -6,28 +6,51 @@ stack). Push, pop and min should all operate in constant time.
 class MinStack {
   constructor() {
     this.stack = new Stack();
-    this.minStack = new Stack();
   }
   push(value) {
-    if (value <= this.min()) {
-      this.minStack.push(value);
-    }
-    this.stack.push(value);
+    this.stack.push({
+      value: value,
+      min: Math.min(value, this.min()),
+    });
   }
   pop() {
-    const value = this.stack.pop();
-    if (value === this.min()) {
-      this.minStack.pop();
-    }
-    return value;
+    return this.stack.pop().value;
   }
   min() {
-    if (this.minStack.isEmpty()) {
+    if (this.stack.isEmpty()) {
       return Infinity;
+    } else {
+      return this.stack.peek().min;
     }
-    return this.minStack.peek();
   }
 }
+
+// Solution with 2 stacks
+// class MinStack {
+//   constructor() {
+//     this.stack = new Stack();
+//     this.minStack = new Stack();
+//   }
+//   push(value) {
+//     if (value < this.min()) {
+//       this.minStack.push(value);
+//     } else {
+//       this.minStack.push(this.min());
+//     }
+
+//     this.stack.push(value);
+//   }
+//   pop() {
+//     this.minStack.pop();
+//     return this.stack.pop();
+//   }
+//   min() {
+//     if (this.minStack.isEmpty()) {
+//       return Infinity;
+//     }
+//     return this.minStack.peek();
+//   }
+// }
 
 // _________ _______  _______ _________   _______  _______  _______  _______  _______
 // \__   __/(  ____ \(  ____ \\__   __/  (  ____ \(  ___  )(  ____ \(  ____ \(  ____ \
@@ -69,11 +92,12 @@ describe("Min Stack", () => {
   it("min works", () => {
     swm.push(5);
     assert.equal(swm.min(), 5);
-    assert.equal(swm.pop(), 5);
-
-    swm.push(5);
     swm.push(1);
     assert.equal(swm.min(), 1);
+    swm.push(3);
+    assert.equal(swm.min(), 1);
+
+    swm.pop();
     swm.pop();
     assert.equal(swm.min(), 5);
   });
