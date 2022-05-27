@@ -66,7 +66,7 @@ const { assert } = chai;
 
 describe("Plate Stacks", () => {
   it("push and pop works", () => {
-    const sos = new PlateStacks(3);
+    const sos = new PlateStacks(1);
 
     sos.push("Kevin");
     sos.push("Eric");
