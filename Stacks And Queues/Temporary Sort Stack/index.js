@@ -14,7 +14,7 @@ function sortStack(s) {
     tempStack.push(temp);
   }
 
-  // Copy elements from tempStack back onto s
+  // Pop elements from tempStack back onto s
   while (!tempStack.isEmpty()) {
     s.push(tempStack.pop());
   }
