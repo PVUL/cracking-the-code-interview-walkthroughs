@@ -4,26 +4,32 @@ Implement a queue using just two stacks.
 
 class QueueFromStacks {
   constructor() {
-    this.stack1 = new Stack();
-    this.stack2 = new Stack();
+    this.pushStack = new Stack();
+    this.popStack = new Stack();
   }
   size() {
-    return this.stack1.size() + this.stack2.size();
+    return this.pushStack.size() + this.popStack.size();
   }
   add(value) {
-    this.stack1.push(value);
+    this.pushStack.push(value);
   }
   remove() {
-    while (this.stack1.size() > 0) {
-      this.stack2.push(this.stack1.pop());
+    if (this.popStack.size() === 0) {
+      while (this.pushStack.size() > 0) {
+        this.popStack.push(this.pushStack.pop());
+      }
     }
-    return this.stack2.pop();
+
+    return this.popStack.pop();
   }
   peek() {
-    while (this.stack1.size() > 0) {
-      this.stack2.push(this.stack1.pop());
+    if (this.popStack.size() === 0) {
+      while (this.pushStack.size() > 0) {
+        this.popStack.push(this.pushStack.pop());
+      }
     }
-    return this.stack2.peek();
+
+    return this.popStack.peek();
   }
 }
 
@@ -54,9 +60,13 @@ mocha.setup("bdd");
 const { assert } = chai;
 
 describe("Queue From Stacks", () => {
-  it("size works, add method exists", () => {
+  it("size works", () => {
     const queue = new QueueFromStacks();
     assert.equal(queue.size(), 0);
+  });
+
+  it("add exists", () => {
+    const queue = new QueueFromStacks();
     queue.add("Dummy info");
   });
 
