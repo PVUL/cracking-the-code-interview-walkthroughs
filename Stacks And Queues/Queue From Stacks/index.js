@@ -10,10 +10,10 @@ class QueueFromStacks {
   size() {
     return this.pushStack.size() + this.popStack.size();
   }
-  add(value) {
+  enqueue(value) {
     this.pushStack.push(value);
   }
-  remove() {
+  dequeue() {
     if (this.popStack.size() === 0) {
       while (this.pushStack.size() > 0) {
         this.popStack.push(this.pushStack.pop());
@@ -65,30 +65,30 @@ describe("Queue From Stacks", () => {
     assert.equal(queue.size(), 0);
   });
 
-  it("add exists", () => {
+  it("enqueue exists", () => {
     const queue = new QueueFromStacks();
-    queue.add("Dummy info");
+    queue.enqueue("Dummy info");
   });
 
-  it("remove has FIFO behavior", () => {
+  it("dequeue has FIFO behavior", () => {
     const queue = new QueueFromStacks();
 
-    queue.add(1);
-    queue.add(2);
-    queue.add(3);
+    queue.enqueue(1);
+    queue.enqueue(2);
+    queue.enqueue(3);
 
-    assert.equal(queue.remove(), 1);
-    assert.equal(queue.remove(), 2);
-    assert.equal(queue.remove(), 3);
+    assert.equal(queue.dequeue(), 1);
+    assert.equal(queue.dequeue(), 2);
+    assert.equal(queue.dequeue(), 3);
   });
 
   it("peek works", () => {
     const queue = new QueueFromStacks();
 
-    queue.add(1);
-    queue.add(2);
+    queue.enqueue(1);
+    queue.enqueue(2);
     assert.equal(queue.peek(), 1);
-    assert.equal(queue.remove(), 1);
+    assert.equal(queue.dequeue(), 1);
   });
 });
 
