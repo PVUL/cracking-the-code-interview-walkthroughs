@@ -40,6 +40,29 @@ function isReachable(directedGraph, v1, v2) {
   return false;
 }
 
+// function isReachable(directedGraph, v1, v2) {
+//   const s = [];
+//   const visited = {};
+
+//   visited[v1] = true;
+//   s.push(v1);
+
+//   while (s.length) {
+//     const popped = s.pop();
+//     if (popped === v2) return true;
+
+//     for (const neighbor of directedGraph.adjacencyList[popped]) {
+//       if (neighbor in visited === false) {
+//         visited[neighbor] = true;
+//         s.push(neighbor);
+//       }
+//     }
+//   }
+
+//   // If DFS is completed without having visited v2
+//   return false;
+// }
+
 // _________ _______  _______ _________   _______  _______  _______  _______  _______
 // \__   __/(  ____ \(  ____ \\__   __/  (  ____ \(  ___  )(  ____ \(  ____ \(  ____ \
 //    ) (   | (    \/| (    \/   ) (     | (    \/| (   ) || (    \/| (    \/| (    \/
