@@ -90,28 +90,31 @@ mocha.setup("bdd");
 const { assert } = chai;
 
 describe("Is Reachable", () => {
-  it("returns true correctly", () => {
-    const g = new DirectedGraph();
-    g.addVertex(1);
-    g.addVertex(2);
-    g.addEdge(1, 2);
+  const dg = new DirectedGraph();
+  for (const num of [45, 12, 14, 13, 0, 400]) {
+    dg.addVertex(num);
+  }
+  dg.addEdge(45, 14);
+  dg.addEdge(12, 14);
+  dg.addEdge(12, 13);
+  dg.addEdge(14, 0);
+  dg.addEdge(13, 400);
 
-    assert.equal(isReachable(g, 1, 2), true);
+  it("returns true correctly", () => {
+    assert.equal(isReachable(dg, 45, 0), true);
+    assert.equal(isReachable(dg, 12, 0), true);
+    assert.equal(isReachable(dg, 12, 400), true);
   });
 
   it("returns true if input nodes are the same node", () => {
     const g = new DirectedGraph();
     g.addVertex(1);
-
     assert.equal(isReachable(g, 1, 1), true);
   });
 
   it("returns false correctly", () => {
-    const g = new DirectedGraph();
-    g.addVertex(1);
-    g.addVertex(2);
-
-    assert.equal(isReachable(g, 1, 2), false);
+    assert.equal(isReachable(dg, 45, 400), false);
+    assert.equal(isReachable(dg, 13, 0), false);
   });
 });
 
