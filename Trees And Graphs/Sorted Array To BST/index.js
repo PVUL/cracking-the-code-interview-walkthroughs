@@ -14,12 +14,15 @@ class TreeNode {
 function sortedArrayToBST(sortedNums) {
   function helper(leftIndex, rightIndex) {
     if (leftIndex > rightIndex) {
-      return null;
+      return;
     }
+
     const midIndex = Math.floor((leftIndex + rightIndex) / 2);
     const node = new TreeNode(sortedNums[midIndex]);
+
     node.left = helper(leftIndex, midIndex - 1);
     node.right = helper(midIndex + 1, rightIndex);
+
     return node;
   }
 
@@ -54,7 +57,7 @@ const { assert } = chai;
 
 describe("Sorted Array To BST", () => {
   it("works", () => {
-    const resultBST = sortedArrayToBST([-10, -3, 0, 5, 9]);
+    const resultBST = sortedArrayToBST([1, 2, 3, 4, 5]);
 
     assert.equal(isValidBST(resultBST), true);
     assert.equal(maxDepth(resultBST), 3);
