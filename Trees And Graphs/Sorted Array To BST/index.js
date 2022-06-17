@@ -61,6 +61,15 @@ describe("Sorted Array To BST", () => {
 
     assert.equal(isValidBST(resultBST), true);
     assert.equal(maxDepth(resultBST), 3);
+
+    let numNodes = 0;
+    function inOrder(root) {
+      root.left && inOrder(root.left);
+      numNodes += 1;
+      root.right && inOrder(root.right);
+    }
+    inOrder(resultBST);
+    assert.equal(numNodes, 5);
   });
 });
 
