@@ -2,6 +2,13 @@
 Given a sorted array of nums (ascending order), write a function that creates a 
 Balanced Binary Search Tree using the array nums.
 
+[1, 2, 3, 4, 5] -->
+                       3
+                      / \
+                     2   4
+                    /     \
+                   1       5
+
 class TreeNode {
   constructor(data) {
     this.data = data;
