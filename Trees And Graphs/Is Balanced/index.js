@@ -13,18 +13,20 @@ class TreeNode {
 */
 
 function isBalanced(root) {
+  let balanced = true;
+
   function helper(node) {
     if (!node) return 0;
 
-    const left = 1 + helper(node.left);
-    const right = 1 + helper(node.right);
+    const leftHeight = helper(node.left);
+    const rightHeight = helper(node.right);
+    if (Math.abs(leftHeight - rightHeight) > 1) balanced = false;
 
-    if (Math.abs(left - right) > 1) return -Infinity;
-
-    return Math.max(left, right);
+    return Math.max(leftHeight, rightHeight) + 1;
   }
 
-  return helper(root) === -Infinity ? false : true;
+  helper(root);
+  return balanced;
 }
 
 // _________ _______  _______ _________   _______  _______  _______  _______  _______
@@ -56,28 +58,30 @@ const { assert } = chai;
 describe("Is Balanced", () => {
   it("returns true correctly", () => {
     const BST = new BinarySearchTree();
-    BST.insert(8);
-    BST.insert(3);
-    assert.equal(isBalanced(BST.root), true);
-
-    BST.insert(10);
+    BST.insert(5);
+    BST.insert(0);
+    BST.insert(20);
+    BST.insert(15);
+    BST.insert(25);
     assert.equal(isBalanced(BST.root), true);
   });
 
   it("returns false correctly", () => {
     const BST = new BinarySearchTree();
-    BST.insert(8);
-    BST.insert(10);
-    BST.insert(13);
+    BST.insert(100);
+    BST.insert(50);
+    BST.insert(200);
+    BST.insert(25);
+    BST.insert(75);
+    BST.insert(12);
+    BST.insert(35);
     assert.equal(isBalanced(BST.root), false);
 
     const BST2 = new BinarySearchTree();
     BST2.insert(8);
-
     BST2.insert(7);
     BST2.insert(6);
     BST2.insert(5);
-
     BST2.insert(9);
     BST2.insert(10);
     BST2.insert(11);
