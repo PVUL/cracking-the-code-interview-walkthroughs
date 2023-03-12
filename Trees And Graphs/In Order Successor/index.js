@@ -13,34 +13,27 @@ class TreeNode {
 */
 
 function inOrderSuccessor(node) {
-  //If node has a right subtree, then succ lies on smallest node in right subtree.
+  //If node has a right subtree, then successor lies on left most node in right subtree.
   if (node.right) {
-    return minValue(node.right);
+    return leftMostChild(node.right);
   } else {
-    // If node does NOT have right subtree, then succ is one of the ancestors of current node.
-    let successor = node.parent;
-    while (successor) {
-      // Current node is left child of parent. We are thus on the sucessor node
-      if (successor.left === node) return successor;
+    let parent = node.parent;
 
-      // Otherwise, keep moving pointer upwards
-      node = successor;
-      successor = successor.parent;
+    // Travel up until you see a node that is the left child of its parent. The parent will be the successor.
+    while (parent && node === parent.right) {
+      node = parent;
+      parent = parent.parent;
     }
 
-    return successor;
+    return parent;
   }
 }
 
-// Finds minimum value of BST by going towards left most child
-function minValue(node) {
-  if (!node) return null;
-
-  let current = node;
-  while (current.left) {
-    current = current.left;
+function leftMostChild(node) {
+  while (node.left) {
+    node = node.left;
   }
-  return current;
+  return node;
 }
 
 // _________ _______  _______ _________   _______  _______  _______  _______  _______
