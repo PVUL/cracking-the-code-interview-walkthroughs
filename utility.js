@@ -6,7 +6,7 @@ class ListNode {
 }
 
 const convertArrToLL = (arr) => {
-  let dummyHead = new ListNode("dummy");
+  let dummyHead = new ListNode('dummy');
   let tailOfResList = dummyHead;
 
   for (const data of arr) {
@@ -195,6 +195,7 @@ class LinkedList {
   }
 }
 
+// emulates the Java version of Stack data structure
 class Stack {
   constructor() {
     this.stack = [];
@@ -223,6 +224,7 @@ class Node {
   }
 }
 
+// emulates the Java version of Queue data structure
 class Queue {
   constructor() {
     this.head = null;

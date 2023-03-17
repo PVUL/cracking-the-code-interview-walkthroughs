@@ -1,6 +1,6 @@
-/* 
-Given two strings, return true or false based on whether the strings are anagrams 
-of each other. An anagram is a word or phrase formed by rearranging the letters of a 
+/*
+Given two strings, return true or false based on whether the strings are anagrams
+of each other. An anagram is a word or phrase formed by rearranging the letters of a
 different word or phrase, typically using all the original letters exactly once.
 
 Examples
@@ -9,10 +9,39 @@ Examples
 */
 
 function isAnagram(s, t) {
+  // base case
+  // if not same length, cannot be anagrams of eachother
   if (s.length !== t.length) return false;
 
-  return s.split("").sort().join("") === t.split("").sort().join("");
+  /**
+   * Solution 1: 2 for loops
+   * time complexity: O(n+m), subquadratic time
+   * space complexity: O(n)
+   */
+  const charSet = {}; // {r: 1, a: 1, t: 0}
+  for (const sChar of s) {
+    charSet[sChar] = charSet[sChar] + 1 || 1;
+  }
+
+  for (const tChar of t) {
+    // if any value is 0, or undefined, than we return false
+    if (!charSet[tChar] || charSet[tChar] === 0) {
+      return false;
+    } else {
+      charSet[tChar] -= 1;
+    }
+  }
+  return true;
+
+  /**
+   * Solution 2: sort first, constant time
+   * time complexity: O(N log N)
+   * space complexity: O(1)
+   */
+  // return s.split('').sort().join('') === t.split('').sort().join('');
 }
+
+// ---------------------------------------------------------------------
 
 // function isAnagram(s, t) {
 //   if (s.length !== t.length) return false;
@@ -63,18 +92,18 @@ function isAnagram(s, t) {
 //                          ______ ______ ______ ______ ______
 //                         |______|______|______|______|______|
 
-mocha.setup("bdd");
+mocha.setup('bdd');
 const { assert } = chai;
 
-describe("Is Anagram", () => {
+describe('Is Anagram', () => {
   it("isAnagram('anagram', 'nagaram') returns true", () => {
-    assert.equal(isAnagram("anagram", "nagaram"), true);
+    assert.equal(isAnagram('anagram', 'nagaram'), true);
   });
   it("isAnagram('', '') returns true", () => {
-    assert.equal(isAnagram("", ""), true);
+    assert.equal(isAnagram('', ''), true);
   });
   it("isAnagram('rat', 'car') returns false", () => {
-    assert.equal(isAnagram("rat", "car"), false);
+    assert.equal(isAnagram('rat', 'car'), false);
   });
 });
 

@@ -1,6 +1,8 @@
 // Return an odd number greater than 100.
 
-function oddsGreaterThan100() {}
+function oddsGreaterThan100() {
+  return 109;
+}
 // _________ _______  _______ _________   _______  _______  _______  _______  _______
 // \__   __/(  ____ \(  ____ \\__   __/  (  ____ \(  ___  )(  ____ \(  ____ \(  ____ \
 //    ) (   | (    \/| (    \/   ) (     | (    \/| (   ) || (    \/| (    \/| (    \/
@@ -24,18 +26,18 @@ function oddsGreaterThan100() {}
 //                          ______ ______ ______ ______ ______
 //                         |______|______|______|______|______|
 
-mocha.setup("bdd");
+mocha.setup('bdd');
 const { assert } = chai;
 
-describe("oddsGreaterThan100", () => {
-  it("returns an odd number.", () => {
+describe('oddsGreaterThan100', () => {
+  it('returns an odd number.', () => {
     const res = oddsGreaterThan100();
-    assert.equal(typeof res, "number");
+    assert.equal(typeof res, 'number');
     assert.equal(res % 2 !== 0, true);
   });
-  it("returns a number greater than 100.", () => {
+  it('returns a number greater than 100.', () => {
     const res = oddsGreaterThan100();
-    assert.equal(typeof res, "number");
+    assert.equal(typeof res, 'number');
     assert.equal(res > 100, true);
   });
 });

@@ -1,29 +1,33 @@
-/* 
-Given an input string, write a function that returns a compressed string exactly as 
+/*
+Given an input string, write a function that returns a compressed string exactly as
 seen below.
-Example 
+Example
 bbcdddddbbb --> b2c1d5b3
 
-If the "compressed" string is not smaller than the original string, return the 
+If the "compressed" string is not smaller than the original string, return the
 original string.
-Example 
+Example
 abc --> abc
 */
 
 function charLengthEncoding(str) {
-  let compressed = "";
-  let countConsecutive = 1;
-
-  for (let i = 0; i < str.length; i++) {
-    if (str[i] === str[i + 1]) {
-      countConsecutive++;
+  /** Solution 1.
+   * Time Complexity: O(n) linear time due to while loop
+   * Space Complexity: O(1) contant space
+   */
+  let compressedStr = ''; // b2c1d5b3
+  let count = 1;
+  for (i = 0; i < str.length; i++) {
+    if (str[i] !== str[i + 1]) {
+      compressedStr += str[i] + count.toString();
+      count = 1; // reset count
     } else {
-      compressed = compressed + str[i] + String(countConsecutive);
-      countConsecutive = 1;
+      count++;
     }
   }
 
-  return compressed.length < str.length ? compressed : str;
+  // console.log(compressedStr);
+  return str.length <= compressedStr.length ? str : compressedStr;
 }
 
 // _________ _______  _______ _________   _______  _______  _______  _______  _______
@@ -49,18 +53,18 @@ function charLengthEncoding(str) {
 //                          ______ ______ ______ ______ ______
 //                         |______|______|______|______|______|
 
-mocha.setup("bdd");
+mocha.setup('bdd');
 const { assert } = chai;
 
-describe("Character Length Encoding", () => {
+describe('Character Length Encoding', () => {
   it("charLengthEncoding('aaaaaa') --> 'a6'", () => {
-    assert.equal(charLengthEncoding("aaaaaa"), "a6");
+    assert.equal(charLengthEncoding('aaaaaa'), 'a6');
   });
   it("charLengthEncoding('bbcdddddbbb') --> 'b2c1d5b3'", () => {
-    assert.equal(charLengthEncoding("bbcdddddbbb"), "b2c1d5b3");
+    assert.equal(charLengthEncoding('bbcdddddbbb'), 'b2c1d5b3');
   });
   it("charLengthEncoding('abc') --> 'abc'", () => {
-    assert.equal(charLengthEncoding("abc"), "abc");
+    assert.equal(charLengthEncoding('abc'), 'abc');
   });
 });
 

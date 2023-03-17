@@ -1,35 +1,41 @@
-/* 
-Given a string, check if characters of the string can be rearranged into a 
-palindrome.
+/*
+Given a string, check if characters of the string can be rearranged into a
+palindrome. A palindrome is a word or phrase that reads the same backwards and forwards.
 
 EXAMPLE
 Ace Carr --> true (Can be arranged to Race Car, which is a palindrome)
 */
 
 function canFormPalindrome(phrase) {
-  const charCount = {};
+  /**
+   * Solution 1: using a hash table
+   * Time Complexity: O(n)
+   * Space Complexity: O(1) all characters
+   */
+  // const charSet = {}; // {a: 1, c: 1}
+  // for (let char of phrase.toLowerCase()) {
+  //   if (char === ' ') continue;
+  //   if (char in charSet) {
+  //     delete charSet[char];
+  //   } else {
+  //     charSet[char] = 1;
+  //   }
+  // }
+  // return Object.keys(charSet).length < 2;
 
-  // Fill out char count
-  for (const char of phrase.toLowerCase()) {
-    // Space not counted for character count
-    if (char !== " ") {
-      charCount[char] = charCount[char] + 1 || 1;
+  // Solution 2: Slight variation on solution 1
+  // Time Complexity: O(n)
+  // Space Complexity: O(1) all characters
+  const charSet = {}; // {a: 1, c: 2}
+  let leftoverChars = 0;
+  for (let char of phrase.toLowerCase()) {
+    if (char !== ' ') {
+      charSet[char] = charSet[char] + 1 || 1;
+      leftoverChars =
+        charSet[char] % 2 === 0 ? leftoverChars - 1 : leftoverChars + 1;
     }
   }
-
-  //Check there is only ONE odd count at most
-  let oddCount = 0;
-  for (const count of Object.values(charCount)) {
-    if (count % 2 !== 0) {
-      if (oddCount >= 1) {
-        return false;
-      }
-
-      oddCount += 1;
-    }
-  }
-
-  return true;
+  return leftoverChars <= 1;
 }
 
 // _________ _______  _______ _________   _______  _______  _______  _______  _______
@@ -55,15 +61,19 @@ function canFormPalindrome(phrase) {
 //                          ______ ______ ______ ______ ______
 //                         |______|______|______|______|______|
 
-mocha.setup("bdd");
+mocha.setup('bdd');
 const { assert } = chai;
 
-describe("Can Form Palindrome", () => {
+describe('Can Form Palindrome', () => {
   it("canFormPalindrome('Ace Carr') returns true", () => {
-    assert.equal(canFormPalindrome("Ace Carr"), true);
+    assert.equal(canFormPalindrome('Ace Carr'), true);
   });
   it("canFormPalindrome('Ace Car') returns false", () => {
-    assert.equal(canFormPalindrome("Ace Car"), false);
+    assert.equal(canFormPalindrome('Ace Car'), false);
+  });
+
+  it("canFormPalindrome('A man a plan a canal Panama') returns true", () => {
+    assert.equal(canFormPalindrome('A man a plan a canal Panama'), true);
   });
 });
 
