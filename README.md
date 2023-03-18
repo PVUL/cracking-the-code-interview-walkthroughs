@@ -1,8 +1,8 @@
-# Cracking the Coding Interview Walkthrough
+# Cracking the Coding Interview Walkthroughs
 
 <img src="./course_thumbnail.png" width="400">
 
-- Walkthrough of 81 out of the 189 problems in [Cracking the Coding Interview](https://www.amazon.com/Cracking-Coding-Interview-Programming-Questions/dp/0984782850).
+- Walkthrough of 81 out of the 189 problems in [Cracking the Coding Interview](https://www.amazon.com/Cracking-Coding-Interview-Programming-Questions/dp/0984782850). [Original github repo](https://github.com/KevinRSDNguyen/CTCI-Walkthrough).
 
 - Course: https://www.youtube.com/playlist?list=PLn2ipk-jqgZjQViFOY0Ockx4Nw4aNw6JR
 
@@ -14,7 +14,11 @@
 
 - Basic Knowledge of Algorithms and Data Structures.
 
-## Checklist
+## Dev environment
+
+- VSCode, Edge Browser, Liver Server. For details, see my [test repo](https://github.com/PVUL/test).
+
+## Challenges
 
 - [3. No Duplicates](/Arrays%20And%20Strings/No%20Duplicates/index.js)- the first walkthrough
 - [4. Is Anagram](/Arrays%20And%20Strings/Is%20Anagram/index.js)
