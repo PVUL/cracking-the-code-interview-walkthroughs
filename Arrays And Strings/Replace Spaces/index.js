@@ -2,11 +2,12 @@
 Given a string, return a new string with all spaces replaced with '%20'.
 
 Example
-"Boaty McBoatface" --> "Boaty%20McBoatface"
+"Boaty McBoatface   " --> "Boaty%20McBoatface"
 */
 
 function replaceSpaces(str) {
-  return str.split(" ").join("%20");
+  // return str.trim().replace(/ /g, "%20");
+  return str.trim().split(" ").join("%20");
 }
 
 // function replaceSpaces(str) {
@@ -40,8 +41,8 @@ mocha.setup("bdd");
 const { assert } = chai;
 
 describe("Replace Spaces", () => {
-  it("replaceSpaces('I love you') returns 'I%20love%20you'", () => {
-    assert.equal(replaceSpaces("I love you"), "I%20love%20you");
+  it("replaceSpaces('I love you   ') returns 'I%20love%20you'", () => {
+    assert.equal(replaceSpaces("I love you   "), "I%20love%20you");
   });
 });
 
