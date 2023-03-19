@@ -6,8 +6,7 @@ Example
 */
 
 function replaceSpaces(str) {
-  // return str.trim().replace(/ /g, "%20");
-  return str.trim().split(" ").join("%20");
+  return str.trim().replace(/ /g, "%20");
 }
 
 // function replaceSpaces(str) {
@@ -42,7 +41,7 @@ const { assert } = chai;
 
 describe("Replace Spaces", () => {
   it("replaceSpaces('I love you   ') returns 'I%20love%20you'", () => {
-    assert.equal(replaceSpaces("I love you   "), "I%20love%20you");
+    assert.equal(replaceSpaces("I love you "), "I%20love%20you");
   });
 });
 
