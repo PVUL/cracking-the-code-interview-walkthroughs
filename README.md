@@ -18,6 +18,12 @@
 
 - VSCode, Edge Browser, Liver Server. For details, see my [test repo](https://github.com/PVUL/test).
 
+Note to self: to push latest commits:
+
+```
+git push pvul
+```
+
 ## Challenges
 
 - [3. No Duplicates](/Arrays%20And%20Strings/No%20Duplicates/index.js)- the first walkthrough
