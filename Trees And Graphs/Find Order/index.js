@@ -15,64 +15,41 @@ Output: [4,5,0,2,3,1], [5,4,2,3,1,0], etc
 */
 
 function findOrder(projects, dependencies) {
-  const adjacencyList = buildDirectedGraph(projects, dependencies);
-  const visited = {};
-
-  const topologicalSortedOrder = [];
-  let cycleDetected = false;
-
-  for (const project of projects) {
-    visited[project] = "white";
+  // Create Directed Graph
+  const adjacencyList = {};
+  for (const project of projects) adjacencyList[project] = [];
+  for (const [project1, project2] of dependencies) {
+    adjacencyList[project1].push(project2);
   }
 
-  // DFS to detect cycle and push nodes to output
-  function dfs(vertex) {
-    if (cycleDetected) return;
+  const colors = {};
+  for (const project of projects) {
+    colors[project] = "white";
+  }
 
-    visited[vertex] = "gray";
+  const topologicalSortedOrder = [];
+
+  function helper(vertex) {
+    colors[vertex] = "gray";
 
     for (const neighborVertex of adjacencyList[vertex]) {
-      if (visited[neighborVertex] === "gray") {
-        cycleDetected = true;
-      } else if (visited[neighborVertex] === "white") {
-        dfs(neighborVertex);
+      if (
+        colors[neighborVertex] === "gray" ||
+        (colors[neighborVertex] === "white" && helper(neighborVertex))
+      ) {
+        return true;
       }
     }
 
-    visited[vertex] = "black";
+    colors[vertex] = "black";
     topologicalSortedOrder.push(vertex);
   }
 
-  // DFS all possible vertices
   for (const project of projects) {
-    if (visited[project] === "white") {
-      dfs(project);
-    }
+    if (colors[project] === "white" && helper(project)) return [];
   }
 
-  if (cycleDetected) {
-    return [];
-  } else {
-    topologicalSortedOrder.reverse();
-    return topologicalSortedOrder;
-  }
-}
-
-function buildDirectedGraph(vertices, edges) {
-  const adjacencyList = {};
-
-  for (vertex of vertices) {
-    adjacencyList[vertex] = [];
-  }
-
-  for (const edge of edges) {
-    const v1 = edge[0];
-    const v2 = edge[1];
-
-    adjacencyList[v1].push(v2);
-  }
-
-  return adjacencyList;
+  return topologicalSortedOrder.reverse();
 }
 
 // _________ _______  _______ _________   _______  _______  _______  _______  _______
