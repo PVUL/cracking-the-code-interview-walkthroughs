@@ -6,7 +6,24 @@ Example
 "bigdog" is NOT a rotation of "bigcat"
 */
 
-function isRotation(s1, s2) {}
+/**
+ * My question: what is a rotation?
+ * Ans: if we can shift the letters to the left or right, we can create a rotation.
+ *
+ */
+
+function isRotation(s1, s2) {
+  // approach to take, double the string, and see if s2 is a subset of s1
+  // one issue is we can have false positives if s1 and s2 are of different lengths.
+  // so we should check length match first
+
+  // Solution using .includes
+  // Time Complexity: O(n), technically it's O(a+b), which correspond to the lengths
+  //                  of s1 and s2, but it can be simplified down to O(n)
+  // Space Complexity: O(n), the space for running the temporary string var for running
+  //                   the .includes() on
+  return s1.length === s2.length && (s1 + s1).includes(s2);
+}
 
 // _________ _______  _______ _________   _______  _______  _______  _______  _______
 // \__   __/(  ____ \(  ____ \\__   __/  (  ____ \(  ___  )(  ____ \(  ____ \(  ____ \

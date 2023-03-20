@@ -1,5 +1,5 @@
 /*
-Write a function that takes a linked list and removes duplicate nodes from the list. 
+Write a function that takes a linked list and removes duplicate nodes from the list.
 Example:
 1 - 2 - 2 - 3
 1 - 2 - 3
@@ -8,21 +8,53 @@ Solve this problem without using a temporary buffer
 */
 
 function removeDuplicates(head) {
-  const map = {};
-
+  // Solution 1: with a buffer
+  // Time complexity: O(n) due to while loop
+  // Space complexity: O(n) due to buffer
+  const map = {}; // {1: true, 2: true}
   let current = head;
-  let previous = null;
-
+  let prev = null;
   while (current) {
+    // if current node value has been seen before, it's a duplicate value
     if (current.data in map) {
-      previous.next = current.next;
+      // so we'll skip over the current node by setting the prev node
+      // to the next node, un-referencing the current node out of the linked list
+      prev.next = current.next;
     } else {
+      // if this is the first time we're seeing this current node
+      // let's put it into the map
       map[current.data] = true;
-      previous = current;
+      // then we'll want to set the prev node to the current node
+      prev = current;
     }
-
+    // then set the current node to the next node
+    // this is almost like incrementing the index of an array
     current = current.next;
   }
+
+  // Solution 2: without a buffer
+  // Time complexity: O(n^2) because nested while loops to
+  //                  check for each node all nodes ahead of it
+  // Space complexity: O(1) because no use of buffer
+  // However this is not ideal, and Solution 1 is a better
+  // approach due to the time savings.
+  // let current = head;
+  // while (current) {
+  //   let runner = current;
+  //   while (runner.next) {
+  //     // check all nodes ahead of the current node
+  //     // to see if there are any duplicates
+  //     if (runner.next.data === current.data) {
+  //       // if so, un-reference the next runner node to the next next node
+  //       runner.next = runner.next.next;
+  //     } else {
+  //       // otherwise move on to the next runner node
+  //       // to continue the checks on subsequent nodes
+  //       runner = runner.next;
+  //     }
+  //   }
+  //   current = current.next;
+  // }
 }
 
 //No buffer allowed
@@ -69,23 +101,23 @@ function removeDuplicates(head) {
 //                          ______ ______ ______ ______ ______
 //                         |______|______|______|______|______|
 
-mocha.setup("bdd");
+mocha.setup('bdd');
 const { assert } = chai;
 
-describe("Remove Duplicates", () => {
-  it("Removes dupes correctly, if they exist.", () => {
+describe('Remove Duplicates', () => {
+  it('Removes dupes correctly, if they exist.', () => {
     let list = convertArrToLL([1, 2, 2, 3]);
     removeDuplicates(list);
-    assert.equal(fetchLLVals(list).join(""), "123");
+    assert.equal(fetchLLVals(list).join(''), '123');
 
     list = convertArrToLL([2, 1, 2, 3]);
     removeDuplicates(list);
-    assert.equal(fetchLLVals(list).join(""), "213");
+    assert.equal(fetchLLVals(list).join(''), '213');
   });
-  it("does not remove dupes, if they do not exist.", () => {
+  it('does not remove dupes, if they do not exist.', () => {
     let list = convertArrToLL([1, 2, 3]);
     removeDuplicates(list);
-    assert.equal(fetchLLVals(list).join(""), "123");
+    assert.equal(fetchLLVals(list).join(''), '123');
   });
 });
 
