@@ -1,5 +1,5 @@
 /* 
-Implement Topological sort for our custom Directed Graph
+Detect cycle in directed graph
 */
 
 class CustomDirectedGraph {
@@ -16,27 +16,39 @@ class CustomDirectedGraph {
       this.adjacencyList[v1].push(v2);
     }
   }
-  helper(vertex, visited, output) {
-    visited[vertex] = true;
+  helper(vertex, colors) {
+    colors[vertex] = "gray";
 
-    for (const adjacentVertex of this.adjacencyList[vertex]) {
-      if (!(adjacentVertex in visited)) {
-        this.helper(adjacentVertex, visited, output);
+    for (const neighborVertex of this.adjacencyList[vertex]) {
+      if (colors[neighborVertex] === "gray") return true;
+
+      if (
+        colors[neighborVertex] === "white" &&
+        this.helper(neighborVertex, colors)
+      ) {
+        return true;
       }
     }
-    output.push(vertex);
+
+    colors[vertex] = "black";
+    return false;
   }
-  topologicalSort() {
-    const output = [];
-    const visited = {};
+  detectCycle() {
+    const colors = {};
 
     for (const vertex in this.adjacencyList) {
-      if (!(vertex in visited)) {
-        this.helper(vertex, visited, output);
+      colors[vertex] = "white";
+    }
+
+    for (const vertex in this.adjacencyList) {
+      if (colors[vertex] === "white") {
+        if (this.helper(vertex, colors)) {
+          return true;
+        }
       }
     }
 
-    return output.reverse();
+    return false;
   }
 }
 
@@ -66,42 +78,36 @@ class CustomDirectedGraph {
 mocha.setup("bdd");
 const { assert } = chai;
 
-describe("Topological Sort", () => {
-  it("returns correct topological sort", () => {
+describe("Detect cycle in directed graph", () => {
+  it("correctly returns false", () => {
+    const cdg = new CustomDirectedGraph();
+
+    cdg.addVertex("0");
+    cdg.addVertex("1");
+    cdg.addVertex("2");
+
+    cdg.addEdge("0", "1");
+    cdg.addEdge("0", "2");
+    cdg.addEdge("1", "2");
+
+    assert.equal(cdg.detectCycle(), false);
+  });
+  it("correctly returns true", () => {
     const cdg = new CustomDirectedGraph();
 
     cdg.addVertex("0");
     cdg.addVertex("1");
     cdg.addVertex("2");
     cdg.addVertex("3");
-    cdg.addVertex("4");
-    cdg.addVertex("5");
 
-    cdg.addEdge("5", "2");
-    cdg.addEdge("5", "0");
-    cdg.addEdge("4", "0");
-    cdg.addEdge("4", "1");
+    cdg.addEdge("0", "1");
+    cdg.addEdge("0", "2");
+    cdg.addEdge("1", "2");
+    cdg.addEdge("2", "0");
     cdg.addEdge("2", "3");
-    cdg.addEdge("3", "1");
+    cdg.addEdge("3", "3");
 
-    const possibleResults = [
-      "450231",
-      "452031",
-      "452301",
-      "452310",
-      "523401",
-      "523410",
-      "524031",
-      "524301",
-      "524310",
-      "540231",
-      "542031",
-      "542301",
-      "542310",
-    ];
-
-    const res = cdg.topologicalSort();
-    assert.equal(possibleResults.includes(res.join("")), true);
+    assert.equal(cdg.detectCycle(), true);
   });
 });
 
