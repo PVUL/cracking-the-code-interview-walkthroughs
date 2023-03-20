@@ -1,19 +1,21 @@
-/* 
+/*
 Given the head of a linked list, return the nth node from the end of the list.
 Example
 returnNthFromEnd([1,2,3,4,5], 2) --> 4
 */
 
 function returnNthFromEnd(head, n) {
+  // Solution: Use two runners
+  // Time complexity: O(n) where N is the number of nodes in linked list
+  // Space complexity: O(1) we will only keep track of 2 nodes
   let slow = head;
   let fast = head;
 
-  //Move fast N nodes ahead of slow
+  // move fast N nodes ahead of slow
   for (let i = 0; i < n; i++) {
     fast = fast.next;
   }
 
-  //Moves slow and fast up until fast is falsy value.
   while (fast) {
     slow = slow.next;
     fast = fast.next;
@@ -45,15 +47,15 @@ function returnNthFromEnd(head, n) {
 //                          ______ ______ ______ ______ ______
 //                         |______|______|______|______|______|
 
-mocha.setup("bdd");
+mocha.setup('bdd');
 const { assert } = chai;
 
-describe("Return Nth From End", () => {
-  it("returnNthFromEnd([5,4,3,2,1], 2) returns 2", () => {
+describe('Return Nth From End', () => {
+  it('returnNthFromEnd([5,4,3,2,1], 2) returns 2', () => {
     const startingLL = convertArrToLL([5, 4, 3, 2, 1]);
     assert.equal(returnNthFromEnd(startingLL, 2).data, 2);
   });
-  it("returnNthFromEnd([1], 1) returns 1", () => {
+  it('returnNthFromEnd([1], 1) returns 1', () => {
     const startingLL = convertArrToLL([5, 4, 3, 2, 1]);
     assert.equal(returnNthFromEnd({ data: 1, next: null }, 1).data, 1);
   });
