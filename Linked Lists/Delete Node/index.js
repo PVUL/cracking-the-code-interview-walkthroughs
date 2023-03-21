@@ -1,4 +1,4 @@
-/* 
+/*
 Write a function to delete a node in a singly linked list, given only access to that node.
 EXAMPLE
 Input: Node 3 from [1,2,3,4,5,6,7,8,9,10]
@@ -6,9 +6,11 @@ Result: New linked list looks like [1,2,4,5,6,7,8,9,10]
 */
 
 function deleteNode(node) {
-  if (!node.next) {
-    return;
-  }
+  // Solution:
+  // Time complexity: O(1)
+  // Space complexity: O(1)
+  // if it's the last node in the linked list, just returnn void
+  if (!node.next) return;
 
   node.data = node.next.data;
   node.next = node.next.next;
@@ -37,20 +39,20 @@ function deleteNode(node) {
 //                          ______ ______ ______ ______ ______
 //                         |______|______|______|______|______|
 
-mocha.setup("bdd");
+mocha.setup('bdd');
 const { assert } = chai;
 
-describe("Delete Node", () => {
-  it("deleteNode works", () => {
+describe('Delete Node', () => {
+  it('deleteNode works', () => {
     const startingLL = convertArrToLL([5, 4, 3, 2, 1]);
     const threeNode = startingLL.next.next;
     deleteNode(threeNode);
-    assert.equal(fetchLLVals(startingLL).join(""), "5421");
+    assert.equal(fetchLLVals(startingLL).join(''), '5421');
   });
-  it("deleteNode does not throw error if node to remove is last node of LL", () => {
+  it('deleteNode does not throw error if node to remove is last node of LL', () => {
     const startingLL = convertArrToLL([1]);
     deleteNode(startingLL);
-    assert.equal(fetchLLVals(startingLL).join(""), "1");
+    assert.equal(fetchLLVals(startingLL).join(''), '1');
   });
 });
 
