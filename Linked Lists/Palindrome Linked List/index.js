@@ -1,5 +1,5 @@
-/* 
-Given the head of a singly linked list, write a function that returns true if the 
+/*
+Given the head of a singly linked list, write a function that returns true if the
 given list is a palindrome, else false.
 Example
 [7,5,7] --> true
@@ -7,18 +7,19 @@ Example
 */
 
 function isPalindrome(node) {
+  // Solution: create a reverse of the linked list
+  // Time complexity: O(n), we go through the linked list once when reversing/cloning
+  // Space complexity: O(n), since we create a new linked list
   let reversed = reverseAndClone(node);
   return isEqual(node, reversed);
 }
 
 function reverseAndClone(node) {
   let reversedHead = null;
-
   while (node) {
     let newNode = new ListNode(node.data);
-    newNode.next = reversedHead;
-
-    reversedHead = newNode;
+    newNode.next = reversedHead; // move to the right
+    reversedHead = newNode; // move to the left
     node = node.next;
   }
 
@@ -30,11 +31,12 @@ function isEqual(one, two) {
     if (one.data !== two.data) {
       return false;
     }
+
     one = one.next;
     two = two.next;
   }
 
-  return !one && !two;
+  return !one && !two; // this is to prevent one and two from different lengths
 }
 
 // _________ _______  _______ _________   _______  _______  _______  _______  _______
@@ -60,15 +62,15 @@ function isEqual(one, two) {
 //                          ______ ______ ______ ______ ______
 //                         |______|______|______|______|______|
 
-mocha.setup("bdd");
+mocha.setup('bdd');
 const { assert } = chai;
 
-describe("Palindrome Linked List", () => {
-  it("[0, 1, 2, 1, 0] returns true correctly", () => {
+describe('Palindrome Linked List', () => {
+  it('[0, 1, 2, 1, 0] returns true correctly', () => {
     const l1 = convertArrToLL([0, 1, 2, 1, 0]);
     assert.equal(isPalindrome(l1), true);
   });
-  it("[0, 1, 2, 1, 3] returns false correctly", () => {
+  it('[0, 1, 2, 1, 3] returns false correctly', () => {
     const l1 = convertArrToLL([0, 1, 2, 1, 3]);
     assert.equal(isPalindrome(l1), false);
   });
